@@ -48,13 +48,13 @@ const Register = () => {
           <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <input type="text" placeholder="Role" value={role} onChange={(e) => setRole(e.target.value)} />
-          {/* <select defaultValue={role} onChange={(e) => setRole(e.target.value)}>
+          {/* <input type="text" placeholder="Role" value={role} onChange={(e) => setRole(e.target.value)} /> */}
+          <select defaultValue={role} onChange={(e) => setRole(e.target.value)}>
             <option value="">Select Role</option>
             <option value="ROLE_ENTREGADOR">Entregador</option>
             <option value="ROLE_CLIENTE">Cliente</option>
             <option value="ROLE_ADMIN">Admin</option>
-          </select> */}
+          </select>
           <button type="button" onClick={handleRegister}>Register</button>
         </Form>
       </Container>

@@ -3,6 +3,8 @@ import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
 import TestAPI from "../pages/Test/api";
 import Register from "../pages/Register";
+import Login from "../pages/Login";
+import User from "../pages/User";
 
 const router = createBrowserRouter([
 	{
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
   {
     path: 'register',
     element: <Register />,
+  },
+  {
+    path: 'login',
+    element: <Login />,
+  },
+  {
+    path: 'user',
+    element: <User />,
   }
 ]);
 
