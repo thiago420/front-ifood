@@ -1,39 +1,25 @@
 import { useState } from "react";
 import { Container, Form } from "./styles";
+import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
-import api from "../../api";
 
 const Register = () => {
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    const json = JSON.stringify({
-      email,
-      password,
-    });
+  const handleLogin = async () => {
+    const response = await login(email, password);
 
-    api
-      .post('/auth/login', json, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          alert('User logged successfully!');
-          localStorage.setItem('token', response.data.token);
-          navigate('/user');
-        } else {
-          alert('Error login user');
-        }
-      })
-      .catch(() => {
-        alert('Error login user');
-      });
+    if (response) {
+      console.log('Login successful');
+      navigate('/user');
+    } else {
+      console.log('Login failed');
+    }
   }
 
   return (

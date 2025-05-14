@@ -1,11 +1,16 @@
-import { RouterProvider } from "react-router";
-import router from "./routes";
+// import { RouterProvider } from "react-router";
+import { AuthProvider } from "./context/AuthProvider";
+import GlobalStyle from './styles/GlobalStyles.ts'
+import RouterProvider from "./routes/RouterProvider.tsx";
 
 function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <GlobalStyle />
+        <RouterProvider />
+      </AuthProvider>
     </>
   )
 }

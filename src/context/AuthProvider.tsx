@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useCallback, useContext } from 'react';
 import api from '../api';
 
 interface AuthProviderProps extends React.PropsWithChildren {
@@ -7,7 +7,8 @@ interface AuthProviderProps extends React.PropsWithChildren {
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  role: string;
+  login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -18,10 +19,11 @@ interface LoginResponse {
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [role, setRole] = useState<string>('');
 
-  const login = async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string) => {
     const reponse = await api.post<LoginResponse>('/auth/login', {
       email,
       password
@@ -29,19 +31,26 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     if (reponse.status === 200) {
       setIsAuthenticated(true);
+      setRole(reponse.data.role);
       // Trocar para cookie
       localStorage.setItem('token', reponse.data.token);
+
+      return true;
     }
-  };
+
+    return false;
+  }, []);
 
   const logout = () => {
     setIsAuthenticated(false);
+    setRole('');
   };
 
   return (
     <AuthContext.Provider 
       value={{ 
         isAuthenticated, 
+        role,
         login,
         logout, 
       }}
@@ -51,4 +60,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   )
 };
 
-export default AuthProvider;
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error('null');
+  }
+
+  return context;
+}

@@ -17,4 +17,18 @@ export const Form = styled.div`
   justify-content: center;
   padding: 20px;
   background-color: #fff;
+
+  button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
 `;
