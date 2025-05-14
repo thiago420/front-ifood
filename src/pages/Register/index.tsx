@@ -14,10 +14,10 @@ const Register = () => {
 
   const handleRegister = () => {
     const json = JSON.stringify({
-      name,
-      email,
-      password,
-      role
+      nmUsuario: name,
+      dsEmail: email,
+      dsSenha: password,
+      enRole: role,
     });
 
     api
@@ -44,6 +44,15 @@ const Register = () => {
     <>
       <Container>
         <Form>
+          <button 
+            type="button" 
+            onClick={() => {
+              setName('Teste');
+              setEmail('teste@gmail.com');
+              setPassword('12345678');
+              setRole('CLIENTE');
+            }}
+          >Teste</button>
           <h1>Register</h1>
           <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -52,7 +61,7 @@ const Register = () => {
           <select defaultValue={role} onChange={(e) => setRole(e.target.value)}>
             <option value="">Select Role</option>
             <option value="ROLE_ENTREGADOR">Entregador</option>
-            <option value="ROLE_CLIENTE">Cliente</option>
+            <option value="CLIENTE">Cliente</option>
             <option value="ROLE_ADMIN">Admin</option>
           </select>
           <button type="button" onClick={handleRegister}>Register</button>

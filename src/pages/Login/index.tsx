@@ -26,6 +26,13 @@ const Register = () => {
     <>
       <Container>
         <Form>
+          <button 
+            type="button" 
+            onClick={() => {
+              setEmail('teste@gmail.com');
+              setPassword('12345678');
+            }}
+          >Teste</button>
           <h1>Login</h1>
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />

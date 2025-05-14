@@ -25,8 +25,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = useCallback(async (email: string, password: string) => {
     const reponse = await api.post<LoginResponse>('/auth/login', {
-      email,
-      password
+      dsEmail: email,
+      dsSenha: password,
     })
 
     if (reponse.status === 200) {
